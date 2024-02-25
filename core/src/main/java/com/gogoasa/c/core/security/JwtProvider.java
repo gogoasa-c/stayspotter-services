@@ -6,6 +6,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +24,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Component
 @Slf4j
 public class JwtProvider {
@@ -61,6 +64,7 @@ public class JwtProvider {
                 .parseClaimsJws(token);
 
         } catch (JwtException e) {
+            log.error(e.getMessage());
             throw new IllegalArgumentException("JWT is blank!");
         }
 
@@ -76,6 +80,7 @@ public class JwtProvider {
                 .parseClaimsJws(token)
                 .getBody();
 
+            //noinspection unchecked
             Set<SimpleGrantedAuthority> grantedAuthorities = ((ArrayList<String>) claims.get(AUTHORITIES)).stream()
                 .filter(claim -> claim != null && !claim.isBlank())
                 .map(SimpleGrantedAuthority::new)
