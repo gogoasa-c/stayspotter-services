@@ -1,6 +1,13 @@
 spring:
   application:
     name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: core
+          uri: lb://CORE
+          predicates:
+            - Path=/user/**
 
 
 server:

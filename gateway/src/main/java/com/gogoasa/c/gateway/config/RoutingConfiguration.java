@@ -11,7 +11,10 @@ public class RoutingConfiguration {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-            .route("user", r -> r.path("/user/**").and().method(HttpMethod.POST).uri("lb://CORE"))
+            .route("user", r -> r.path("/user/**")
+                .and().method(HttpMethod.POST)
+                .and().method(HttpMethod.GET)
+                .uri("lb://core"))
             .build();
     }
 
