@@ -11,6 +11,7 @@
     <groupId>com.gogoasa.c</groupId>
     <artifactId>stayspotter-services</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>stayspotter-services</name>
     <description>stayspotter-services</description>
     <properties>
@@ -34,7 +35,7 @@
             <artifactId>spring-cloud-dependencies</artifactId>
             <version>${spring.cloud-version}</version>
             <type>pom</type>
-            <scope>import</scope>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>

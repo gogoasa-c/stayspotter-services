@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  ss_db:
+    image: postgres:latest
+    container_name: ss_db
+    environment:
+      - POSTGRES_USER=ss_user
+      - POSTGRES_PASSWORD=ss_password
+      - POSTGRES_DB=ss_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ss_db_data:/var/lib/postgresql/data
+
+volumes:
+    ss_db_data:
+      driver: local
+
