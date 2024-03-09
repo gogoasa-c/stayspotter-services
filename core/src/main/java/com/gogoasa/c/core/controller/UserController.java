@@ -26,14 +26,7 @@ public class UserController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> login(@RequestBody UserRequestDto user) {
         log.info("User {} logging in...", user.getUsername());
-
-        if (!userService.login(user)) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        String jwt = jwtProvider.generateToken(user.getUsername(), 5L, Set.of(ROLE_USER));
-
-        return ResponseEntity.ok(jwt);
+        return ResponseEntity.ok(userService.login(user));
     }
 
     @PostMapping(value = "/new", produces = MediaType.APPLICATION_JSON_VALUE)
