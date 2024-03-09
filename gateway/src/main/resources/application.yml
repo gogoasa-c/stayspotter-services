@@ -8,6 +8,10 @@ spring:
           uri: lb://CORE
           predicates:
             - Path=/user/**
+        - id: data
+          uri: lb://DATA
+          predicates:
+            - Path=/data/**
 
 
 server:

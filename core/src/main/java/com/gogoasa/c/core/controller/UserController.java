@@ -2,6 +2,7 @@ package com.gogoasa.c.core.controller;
 
 import com.gogoasa.c.core.model.User;
 import com.gogoasa.c.core.security.JwtProvider;
+import com.gogoasa.c.core.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -17,20 +18,24 @@ import java.util.Set;
 public class UserController {
 
     private JwtProvider jwtProvider;
+    private UserService userService;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> login(@RequestBody User user) {
-        log.info("User {} logged in", user.getUsername());
+        log.info("User {} logging in...", user.getUsername());
+
+
+
 
         String jwt = jwtProvider.generateToken(user.getUsername(), 5L, Set.of("ROLE_ADMIN"));
 
         return ResponseEntity.ok(jwt);
     }
 
-    @GetMapping("/something")
-    public ResponseEntity<String> doSomething() {
-        return ResponseEntity.ok("SOMEHTING!!");
+    @PostMapping(value = "/new", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        log.info("User {} creating...", user.getUsername());
+        return ResponseEntity.ok(userService.createUser(user));
     }
-
 
 }

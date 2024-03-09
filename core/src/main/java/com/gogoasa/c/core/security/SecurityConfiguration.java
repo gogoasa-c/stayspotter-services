@@ -34,9 +34,7 @@ public class SecurityConfiguration {
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers(antMatcher(HttpMethod.GET, "/something")).permitAll()
-                .requestMatchers(antMatcher(HttpMethod.POST, "/user")).permitAll()
-                .requestMatchers("/user/something").hasRole("ADMIN")
+                .requestMatchers(antMatcher(HttpMethod.POST, "/user/new")).permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(authorizationFilter,

@@ -37,6 +37,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
 
+            log.debug("Filtering request: {}", request.getRequestURI());
             filterChain.doFilter(request, response);
 
         } catch (IllegalArgumentException e) {
@@ -44,5 +45,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT!");
         }
 
+        log.debug("Done filtering request: {}", request.getRequestURI());
     }
 }

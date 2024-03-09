@@ -1,6 +1,7 @@
 package com.gogoasa.c.data.service;
 
 import com.gogoasa.c.data.model.User;
+import com.gogoasa.c.data.model.dto.UserCreationDto;
 import com.gogoasa.c.data.model.dto.UserResponseDto;
 import com.gogoasa.c.data.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -16,14 +17,22 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public User createUser(User user) {
+    public UserCreationDto createUser(UserCreationDto user) {
         userRepository.findById(user.getUsername()).ifPresent(u -> {
             throw new IllegalArgumentException("User already exists");
         });
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        return userRepository.save(user);
+
+        User userToSave = new User();
+        userToSave.setUsername(user.getUsername());
+        userToSave.setEmail(user.getEmail());
+        userToSave.setPassword(user.getPassword());
+
+        userRepository.save(userToSave);
+
+        return user;
     }
 
     public boolean login(User user) {
@@ -40,5 +49,13 @@ public class UserService {
          }
 
          return new UserResponseDto(user.get().getUsername(), user.get().getEmail());
+    }
+
+    public void deleteUser(String username) {
+        if (userRepository.findById(username).isEmpty()) {
+            throw new IllegalArgumentException("User not found");
+        }
+
+        userRepository.deleteById(username);
     }
 }
