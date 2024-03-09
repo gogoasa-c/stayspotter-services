@@ -35,6 +35,7 @@ public class SecurityConfiguration {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers(antMatcher(HttpMethod.POST, "/user/new")).permitAll()
+                .requestMatchers(antMatcher(HttpMethod.POST, "/user")).permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(authorizationFilter,

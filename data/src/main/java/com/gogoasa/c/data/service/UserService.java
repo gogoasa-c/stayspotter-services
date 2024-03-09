@@ -2,6 +2,7 @@ package com.gogoasa.c.data.service;
 
 import com.gogoasa.c.data.model.User;
 import com.gogoasa.c.data.model.dto.UserCreationDto;
+import com.gogoasa.c.data.model.dto.UserRequestDto;
 import com.gogoasa.c.data.model.dto.UserResponseDto;
 import com.gogoasa.c.data.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,7 @@ public class UserService {
         return user;
     }
 
-    public boolean login(User user) {
+    public boolean login(UserRequestDto user) {
         return userRepository.findById(user.getUsername())
                 .map(u -> passwordEncoder.matches(user.getPassword(), u.getPassword()))
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));

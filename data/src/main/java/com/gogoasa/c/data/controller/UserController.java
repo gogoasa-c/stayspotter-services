@@ -2,6 +2,7 @@ package com.gogoasa.c.data.controller;
 
 import com.gogoasa.c.data.model.User;
 import com.gogoasa.c.data.model.dto.UserCreationDto;
+import com.gogoasa.c.data.model.dto.UserRequestDto;
 import com.gogoasa.c.data.model.dto.UserResponseDto;
 import com.gogoasa.c.data.repository.UserRepository;
 import com.gogoasa.c.data.service.UserService;
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody User user) {
+    public ResponseEntity<Boolean> login(@RequestBody UserRequestDto user) {
        return ResponseEntity.ok(userService.login(user));
     }
 

@@ -1,6 +1,7 @@
 package com.gogoasa.c.core.controller;
 
 import com.gogoasa.c.core.model.User;
+import com.gogoasa.c.core.model.dto.UserRequestDto;
 import com.gogoasa.c.core.security.JwtProvider;
 import com.gogoasa.c.core.service.UserService;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
+
+import static com.gogoasa.c.core.utils.Constant.ROLE_USER;
 
 @RestController
 @RequestMapping("/user")
@@ -21,13 +24,14 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> login(@RequestBody User user) {
+    public ResponseEntity<String> login(@RequestBody UserRequestDto user) {
         log.info("User {} logging in...", user.getUsername());
 
+        if (!userService.login(user)) {
+            return ResponseEntity.badRequest().build();
+        }
 
-
-
-        String jwt = jwtProvider.generateToken(user.getUsername(), 5L, Set.of("ROLE_ADMIN"));
+        String jwt = jwtProvider.generateToken(user.getUsername(), 5L, Set.of(ROLE_USER));
 
         return ResponseEntity.ok(jwt);
     }
