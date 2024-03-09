@@ -10,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Set;
 
 import static com.gogoasa.c.core.utils.Constant.ROLE_USER;
-import static java.lang.StringTemplate.STR;
 
 @AllArgsConstructor
 @Service
