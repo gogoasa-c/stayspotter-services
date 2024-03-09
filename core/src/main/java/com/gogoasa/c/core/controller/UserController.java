@@ -20,7 +20,6 @@ import static com.gogoasa.c.core.utils.Constant.ROLE_USER;
 @Slf4j
 public class UserController {
 
-    private JwtProvider jwtProvider;
     private UserService userService;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
