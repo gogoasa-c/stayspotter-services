@@ -12,6 +12,10 @@ spring:
           uri: lb://DATA
           predicates:
             - Path=/data/**
+        - id: scraper
+          uri: lb://SCRAPER
+          predicates:
+            - Path=/scraper/**
 
 
 server:
@@ -20,11 +24,13 @@ eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
   instance:
-    hostname: localhost
+    hostname: eureka-server
 
 
 
 logging:
   level:
-    root: debug
+    root: info

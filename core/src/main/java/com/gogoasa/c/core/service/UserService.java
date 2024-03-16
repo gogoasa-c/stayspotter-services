@@ -20,12 +20,12 @@ public class UserService {
 
     public User createUser(User user) {
         return restTemplate
-            .postForObject("http://localhost:5000/data/user/", user, User.class);
+            .postForObject("http://data/user/", user, User.class);
     }
 
     public String login(UserRequestDto user) {
         boolean successfulLogin = Boolean.TRUE.equals(restTemplate
-            .postForObject("http://localhost:5000/data/user/login", user, Boolean.class));
+            .postForObject("http://data/user/login", user, Boolean.class));
 
         if (!successfulLogin) {
             throw new IllegalArgumentException("Username or password invalid for user %s!"

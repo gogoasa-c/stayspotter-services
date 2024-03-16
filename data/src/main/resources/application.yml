@@ -2,7 +2,7 @@ spring:
   application:
     name: data
   datasource:
-    url: jdbc:postgresql://localhost:5432/ss_db
+    url: jdbc:postgresql://ss_db:5432/ss_db
     username: ss_user
     password: ss_password
   jpa:
@@ -20,6 +20,8 @@ eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
   instance:
-    hostname: localhost
+    hostname: eureka-server
 
