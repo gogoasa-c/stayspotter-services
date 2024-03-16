@@ -1,4 +1,91 @@
-version: "3.8"
+#version: "3.8"
+#
+#services:
+#  ss_db:
+#    image: postgres:latest
+#    container_name: ss_db
+#    environment:
+#      - POSTGRES_USER=ss_user
+#      - POSTGRES_PASSWORD=ss_password
+#      - POSTGRES_DB=ss_db
+#    depends_on:
+#      - eureka_server
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - ss_db_data:/var/lib/postgresql/data
+#
+#  eureka_server:
+#    image: openjdk:21
+#    container_name: eureka_server
+#    build:
+#      context: /eureka-server
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8761:8761"
+#    volumes:
+#      - eureka_server_data:/var/lib/eureka_server_data
+#    command: java -jar /var/lib/eureka_server_data/eureka_server-0.0.1-SNAPSHOT.jar
+#
+#  gateway:
+#    image: openjdk:21
+#    container_name: gateway
+#    build:
+#      context: /gateway
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - eureka_server
+#    ports:
+#      - "5000:5000"
+#    volumes:
+#      - gateway_data:/var/lib/gateway_data
+#    command: java -jar /var/lib/gateway_data/gateway-0.0.1-SNAPSHOT.jar
+#
+#  data:
+#    image: openjdk:21
+#    container_name: data
+#    build:
+#      context: /data
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - ss_db
+#      - eureka_server
+#    ports:
+#      - "8081:8081"
+#    volumes:
+#      - data_data:/var/lib/data_data
+#    command: java -jar /var/lib/data_data/data-0.0.1-SNAPSHOT.jar
+#
+#  core:
+#    image: openjdk:21
+#    container_name: core
+#    build:
+#      context: /core
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - ss_db
+#      - eureka_server
+#      - data
+#      - gateway
+#    ports:
+#      - "8082:8082"
+#    volumes:
+#      - core_data:/var/lib/core_data
+#    command: java -jar /var/lib/core_data/core-0.0.1-SNAPSHOT.jar
+#
+#volumes:
+#  ss_db_data:
+#    driver: local
+#  eureka_server_data:
+#    driver: local
+#  gateway_data:
+#    driver: local
+#  data_data:
+#    driver: local
+#  core_data:
+#    driver: local
+
+version: "3.7"
 
 services:
   ss_db:
@@ -13,72 +100,45 @@ services:
     volumes:
       - ss_db_data:/var/lib/postgresql/data
 
-  eureka_server:
-    image: openjdk:21
-    container_name: eureka_server
+  eureka-server:
     build:
-      context: /eureka-server
+      context: ./eureka-server
       dockerfile: Dockerfile
     ports:
       - "8761:8761"
-    volumes:
-      - eureka_server_data:/var/lib/eureka_server_data
-    command: java -jar /var/lib/eureka_server_data/eureka_server-0.0.1-SNAPSHOT.jar
 
   gateway:
-    image: openjdk:21
-    container_name: gateway
     build:
-      context: /gateway
+      context: ./gateway
       dockerfile: Dockerfile
-    depends_on:
-      - eureka_server
     ports:
       - "5000:5000"
-    volumes:
-      - gateway_data:/var/lib/gateway_data
-    command: java -jar /var/lib/gateway_data/gateway-0.0.1-SNAPSHOT.jar
+    depends_on:
+      - data
+      - eureka-server
+      - ss_db
+      - core
 
   data:
-    image: openjdk:21
-    container_name: data
     build:
-      context: /data
+      context: ./data
       dockerfile: Dockerfile
-    depends_on:
-      - ss_db
-      - eureka_server
     ports:
       - "8081:8081"
-    volumes:
-      - data_data:/var/lib/data_data
-    command: java -jar /var/lib/data_data/data-0.0.1-SNAPSHOT.jar
-
-  core:
-    image: openjdk:21
-    container_name: core
-    build:
-      context: /core
-      dockerfile: Dockerfile
     depends_on:
       - ss_db
-      - eureka_server
-      - data
-      - gateway
+      - eureka-server
+
+  core:
+    build:
+      context: ./core
+      dockerfile: Dockerfile
     ports:
       - "8082:8082"
-    volumes:
-      - core_data:/var/lib/core_data
-    command: java -jar /var/lib/core_data/core-0.0.1-SNAPSHOT.jar
+    depends_on:
+      - data
+      - eureka-server
 
 volumes:
-  ss_db_data:
-    driver: local
-  eureka_server_data:
-    driver: local
-  gateway_data:
-    driver: local
-  data_data:
-    driver: local
-  core_data:
-    driver: local
+    ss_db_data:
+        driver: local
