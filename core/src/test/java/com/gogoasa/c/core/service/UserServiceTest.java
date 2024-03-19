@@ -1,5 +1,6 @@
 package com.gogoasa.c.core.service;
 
+import com.gogoasa.c.core.model.User;
 import com.gogoasa.c.core.model.dto.UserRequestDto;
 import com.gogoasa.c.core.security.JwtProvider;
 import org.junit.jupiter.api.AfterEach;
@@ -50,6 +51,25 @@ class UserServiceTest {
             .thenReturn(false);
 
         assertThrows(IllegalArgumentException.class, () -> userService.login(new UserRequestDto("user", "password")));
+    }
+
+    @Test
+    public void createUserSuccessfully() {
+        final String username = "user";
+        final String password = "password";
+
+        User initialUser = new User();
+        initialUser.setEmail("mail@mail.com");
+        initialUser.setUsername(username);
+        initialUser.setPassword(password);
+
+        when(restTemplate.postForObject(any(String.class), any(User.class), eq(User.class)))
+            .thenReturn(initialUser);
+
+        User user = userService.createUser(initialUser);
+
+        assertEquals(username, user.getUsername());
+        assertEquals(password, user.getPassword());
     }
 
 }
