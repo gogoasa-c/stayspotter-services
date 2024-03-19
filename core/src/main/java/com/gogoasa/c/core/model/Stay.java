@@ -10,5 +10,5 @@ public class Stay {
     private String photoUrl;
     private Float x, y;
     private Float price;
-    private String foundOn; // booking, trivago, airbnb
+//    private String foundOn; // booking, trivago, airbnb
 }
