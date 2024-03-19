@@ -36,6 +36,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers(antMatcher(HttpMethod.POST, "/user/new")).permitAll()
                 .requestMatchers(antMatcher(HttpMethod.POST, "/user")).permitAll()
+                .requestMatchers(antMatcher(HttpMethod.POST, "/stay/**")).hasRole("USER")
                 .anyRequest().authenticated()
             )
             .addFilterBefore(authorizationFilter,
