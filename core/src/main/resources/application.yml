@@ -1,6 +1,6 @@
 spring:
   application:
-    name: core
+    name: CORE
 server:
   port: 8080
 eureka:
@@ -8,9 +8,15 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+      #      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
   instance:
-    hostname: eureka-server
+    hostname: core
+    prefer-ip-address: true
+#    non-secure-port-enabled: true
+#    secure-port-enabled: true
+#    non-secure-port: 80
+#    secure-port: 443
 
 
 jwt:

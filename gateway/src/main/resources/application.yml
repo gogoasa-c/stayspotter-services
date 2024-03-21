@@ -1,21 +1,39 @@
 spring:
   application:
-    name: gateway
+    name: GATEWAY
   cloud:
     gateway:
       routes:
         - id: core
           uri: lb://CORE
           predicates:
-            - Path=/user/**
-        - id: data
-          uri: lb://DATA
-          predicates:
-            - Path=/data/**
-        - id: scraper
-          uri: lb://SCRAPER
-          predicates:
-            - Path=/scraper/**
+            - Path=/**
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      httpclient:
+        wiretap: true
+      httpserver:
+        wiretap: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          "[/**]":
+#            allowedOrigins: "*"
+            allowedMethods: "GET, POST, PUT, DELETE, OPTIONS"
+            allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Content-Length, TOKEN, Authorization"
+            allowCredentials: true
+            maxAge: 3600
+#        - id: data
+#          uri: lb://DATA
+#          predicates:
+#            - Path=/data/**
+#        - id: scraper
+#          uri: lb://SCRAPER
+#          predicates:
+#            - Path=/scraper/**
 
 
 server:
@@ -25,12 +43,18 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+      #      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
   instance:
-    hostname: eureka-server
+    hostname: gateway
+    prefer-ip-address: true
 
 
 
 logging:
   level:
     root: info
+    reactor:
+      netty: info
+    org.springframework.cloud.gateway: trace
+

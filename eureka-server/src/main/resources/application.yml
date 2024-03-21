@@ -1,6 +1,6 @@
 spring:
   application:
-    name: eureka-server
+    name: EUREKA-SERVER
 
 server:
   port: 8761
@@ -8,3 +8,12 @@ eureka:
   client:
     fetch-registry: "false"
     register-with-eureka: "false"
+#  instance:
+#    non-secure-port-enabled: true
+#    secure-port-enabled: false
+#    non-secure-port: 8761
+#    hostname: eureka-server
+
+logging:
+  level:
+    root: debug

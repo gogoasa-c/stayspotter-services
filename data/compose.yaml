@@ -3,7 +3,7 @@ version: "3.8"
 services:
   ss_db:
     image: postgres:latest
-    container_name: ss_db
+    container_name: ss_db_sep
     environment:
       - POSTGRES_USER=ss_user
       - POSTGRES_PASSWORD=ss_password

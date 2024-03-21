@@ -1,8 +1,9 @@
 spring:
   application:
-    name: data
+    name: DATA
   datasource:
-    url: jdbc:postgresql://ss_db:5432/ss_db
+#    url: jdbc:postgresql://ss_db_sep:5432/ss_db
+    url: jdbc:postgresql://localhost:5432/ss_db
     username: ss_user
     password: ss_password
   jpa:
@@ -21,7 +22,13 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+#      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
   instance:
-    hostname: eureka-server
+    hostname: data
+    non-secure-port-enabled: true
+    secure-port-enabled: true
+    non-secure-port: 80
+    secure-port: 443
+    prefer-ip-address: true
 

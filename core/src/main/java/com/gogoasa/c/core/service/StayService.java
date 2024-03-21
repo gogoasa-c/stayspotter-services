@@ -17,7 +17,7 @@ public class StayService {
 
     public void saveStayToFavourites(Stay stay) {
         Boolean successfullySaved = restTemplate
-            .postForObject("http://data/favourite/", stay, Boolean.class);
+            .postForObject("http://data/stay/favourite/", stay, Boolean.class);
 
         if (!Boolean.TRUE.equals(successfullySaved)) {
             throw new IllegalArgumentException("Failed to save stay to favourites!");

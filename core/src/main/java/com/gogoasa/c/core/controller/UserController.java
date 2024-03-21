@@ -34,4 +34,8 @@ public class UserController {
         return ResponseEntity.ok(userService.createUser(user));
     }
 
+    @GetMapping("/something")
+    public ResponseEntity<String> getSomething() {
+        return ResponseEntity.ok("Something");
+    }
 }
