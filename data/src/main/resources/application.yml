@@ -1,9 +1,11 @@
 spring:
   application:
-    name: DATA
+    name: data
+  cloud:
+    discovery:
+      enabled: true
   datasource:
-#    url: jdbc:postgresql://ss_db_sep:5432/ss_db
-    url: jdbc:postgresql://localhost:5432/ss_db
+    url: ${database.url:jdbc:postgresql://localhost:5432/ss_db}
     username: ss_user
     password: ss_password
   jpa:
@@ -22,8 +24,7 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-#      defaultZone: http://eureka-server:8761/eureka/
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${service-discovery.url:http://localhost:8761/eureka/}
   instance:
     hostname: data
     non-secure-port-enabled: true

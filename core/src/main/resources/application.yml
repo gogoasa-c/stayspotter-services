@@ -1,6 +1,9 @@
 spring:
   application:
-    name: CORE
+    name: core
+  cloud:
+    discovery:
+      enabled: true
 server:
   port: 8080
 eureka:
@@ -13,11 +16,9 @@ eureka:
   instance:
     hostname: core
     prefer-ip-address: true
-#    non-secure-port-enabled: true
-#    secure-port-enabled: true
-#    non-secure-port: 80
-#    secure-port: 443
 
+data-service:
+  url: http://DATA:8087
 
 jwt:
   secret: iPVPTqbBv3EBcrKkPj9eNwDPSfVkYaDC9C2j6VxiPMxtxwC6GneLeqb6JJu2EyXEicWTjQzyWjbfKFy9jmT9NgMnMM7vC7ck
