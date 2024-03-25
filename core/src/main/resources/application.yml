@@ -14,11 +14,11 @@ eureka:
       #      defaultZone: http://eureka-server:8761/eureka/
       defaultZone: http://localhost:8761/eureka/
   instance:
-    hostname: core
+    hostname: localhost
     prefer-ip-address: true
 
-data-service:
-  url: http://DATA:8087
+#data-service:
+#  url: http://data:8087
 
 jwt:
   secret: iPVPTqbBv3EBcrKkPj9eNwDPSfVkYaDC9C2j6VxiPMxtxwC6GneLeqb6JJu2EyXEicWTjQzyWjbfKFy9jmT9NgMnMM7vC7ck

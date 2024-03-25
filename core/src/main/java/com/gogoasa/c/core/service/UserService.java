@@ -25,12 +25,12 @@ public class UserService {
 
     public User createUser(User user) {
         return restTemplate
-            .postForObject("%s/user/".formatted(dataServiceUrl), user, User.class);
+            .postForObject("%s/user".formatted(dataServiceUrl), user, User.class);
     }
 
     public String login(UserRequestDto user) {
         boolean successfulLogin = Boolean.TRUE.equals(restTemplate
-            .postForObject("%s/user/login/".formatted(dataServiceUrl), user, Boolean.class));
+            .postForObject("%s/user/login".formatted(dataServiceUrl), user, Boolean.class));
 
         if (!successfulLogin) {
             throw new IllegalArgumentException("Username or password invalid for user %s!"

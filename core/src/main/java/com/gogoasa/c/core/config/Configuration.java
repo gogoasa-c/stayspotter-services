@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 @org.springframework.context.annotation.Configuration
 public class Configuration {
 
+//    @LoadBalanced
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

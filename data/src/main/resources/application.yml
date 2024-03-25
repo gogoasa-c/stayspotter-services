@@ -26,10 +26,4 @@ eureka:
     service-url:
       defaultZone: ${service-discovery.url:http://localhost:8761/eureka/}
   instance:
-    hostname: data
-    non-secure-port-enabled: true
-    secure-port-enabled: true
-    non-secure-port: 80
-    secure-port: 443
-    prefer-ip-address: true
-
+    hostname: localhost
