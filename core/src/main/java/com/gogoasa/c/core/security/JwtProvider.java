@@ -33,7 +33,10 @@ public class JwtProvider {
     private String secret;
 
     public String generateToken(String username, Long ttl, Set<String> authorities) {
+        log.debug("Generating JWT for user {} with authorities {}", username, authorities);
+
         Date expriationDate = Date.from(ZonedDateTime.now().plusMinutes(ttl).toInstant());
+        log.debug("JWT will expire at {}", expriationDate);
 
         return Jwts.builder()
             .setSubject(username)
@@ -50,21 +53,18 @@ public class JwtProvider {
     }
 
     public boolean validateToken(String token) {
-
         if (token.isBlank()) {
             throw new IllegalArgumentException("JWT is blank!");
         }
 
         try {
-
             Jwts.parserBuilder()
                 .setSigningKey(getJwtKey())
                 .build()
                 .parseClaimsJws(token);
 
         } catch (JwtException e) {
-            log.error(e.getMessage());
-            throw new IllegalArgumentException("JWT is blank!");
+            throw new RuntimeException(e);
         }
 
         return true;
@@ -72,7 +72,6 @@ public class JwtProvider {
 
     public Authentication doAuthentication(String token) {
         try {
-
             Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getJwtKey())
                 .build()
@@ -89,7 +88,7 @@ public class JwtProvider {
 
             return new UsernamePasswordAuthenticationToken(user, "", grantedAuthorities);
         } catch (JwtException e) {
-            throw new IllegalArgumentException("Invalid JWT!", e);
+            throw new RuntimeException(e);
         }
     }
 

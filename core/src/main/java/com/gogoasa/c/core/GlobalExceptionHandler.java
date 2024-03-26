@@ -13,6 +13,11 @@ public class GlobalExceptionHandler {
         log.error("ILLEGAL ARGUMENT EXCEPTION OCCURRED: {}", exception.getMessage());
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public void handleRuntimeException(RuntimeException exception) {
+        log.error("RUNTIME EXCEPTION OCCURRED: {}", exception.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public void handleException(Exception exception) {
         log.error("EXCEPTION OCCURRED: {}", exception.getMessage());

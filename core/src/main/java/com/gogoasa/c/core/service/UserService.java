@@ -19,6 +19,7 @@ public class UserService {
 
     private final JwtProvider jwtProvider;
     private final RestTemplate restTemplate;
+    private final Long TTL = 20L;
 
     @Value("${data-service.url:http://localhost:8087}")
     private String dataServiceUrl;
@@ -37,6 +38,6 @@ public class UserService {
                 .formatted(user.getUsername()));
         }
 
-        return jwtProvider.generateToken(user.getUsername(), 20L, Set.of(ROLE_USER));
+        return jwtProvider.generateToken(user.getUsername(), TTL, Set.of(ROLE_USER));
     }
 }

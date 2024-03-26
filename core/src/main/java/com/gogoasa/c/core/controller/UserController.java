@@ -24,18 +24,23 @@ public class UserController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> login(@RequestBody UserRequestDto user) {
-        log.info("User {} logging in...", user.getUsername());
-        return ResponseEntity.ok(userService.login(user));
+        log.info("Received request to login...");
+        log.debug("Request: {}", user);
+
+        String jwt = userService.login(user);
+        log.debug("Response: {}", jwt);
+
+        return ResponseEntity.ok(jwt);
     }
 
     @PostMapping(value = "/new", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        log.info("User {} creating...", user.getUsername());
-        return ResponseEntity.ok(userService.createUser(user));
-    }
+        log.info("Received request to create user...");
+        log.debug("Request: {}", user);
 
-    @GetMapping("/something")
-    public ResponseEntity<String> getSomething() {
-        return ResponseEntity.ok("Something");
+        User newUser = userService.createUser(user);
+        log.debug("Response: {}", newUser);
+
+        return ResponseEntity.ok(newUser);
     }
 }
