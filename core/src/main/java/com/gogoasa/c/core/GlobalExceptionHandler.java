@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public void handleIllegalArgumentException(IllegalArgumentException exception) {
+        log.error("ILLEGAL ARGUMENT EXCEPTION OCCURRED: {}", exception.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public void handleException(Exception exception) {
         log.error("EXCEPTION OCCURRED: {}", exception.getMessage());

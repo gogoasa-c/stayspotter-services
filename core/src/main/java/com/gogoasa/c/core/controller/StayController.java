@@ -24,13 +24,20 @@ public class StayController {
 
     @PostMapping
     public ResponseEntity<List<StayResponseDto>> findStays(@RequestBody StayRequestDto stayRequestDto) {
-        log.info("Searching for stays...");
-        return ResponseEntity.ok(stayService.findStays(stayRequestDto));
+        log.info("Received request to find stays...");
+        log.debug("Request: {}", stayRequestDto);
+
+        List<StayResponseDto> stays = stayService.findStays(stayRequestDto);
+        log.debug("Response: {}", stays);
+
+        return ResponseEntity.ok(stays);
     }
 
     @PostMapping("/favourite")
     public ResponseEntity<Void> saveStayToFavourites(@RequestBody Stay stay) {
-        log.info("Saving stay to favourites...");
+        log.info("Received request to save stay to favourites...");
+        log.debug("Request: {}", stay);
+
         stayService.saveStayToFavourites(stay);
         return ResponseEntity.ok().build();
     }

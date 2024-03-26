@@ -24,17 +24,13 @@ public class StayService {
     private String scraperServiceUrl;
 
     public List<StayResponseDto> findStays(StayRequestDto stayRequestDto) {
-//        return restTemplate.postForObject("http://scraper/stay/", stayRequestDto, Stay.class);
         StayResponseDto[] stayArray = restTemplate
             .postForObject("%s/stays".formatted(scraperServiceUrl), stayRequestDto, StayResponseDto[].class);
 
-        return Arrays.asList(stayArray);
+        return stayArray != null ? Arrays.asList(stayArray) : List.of();
     }
 
     public void saveStayToFavourites(Stay stay) {
-//        Boolean successfullySaved = restTemplate
-//            .postForObject("http://data/stay/favourite/", stay, Boolean.class);
-
         Boolean successfullySaved = restTemplate
             .postForObject("%s/stay/favourite".formatted(dataServiceUrl), stay, Boolean.class);
 
