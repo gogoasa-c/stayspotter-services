@@ -37,6 +37,6 @@ public class UserService {
                 .formatted(user.getUsername()));
         }
 
-        return jwtProvider.generateToken(user.getUsername(), 5L, Set.of(ROLE_USER));
+        return jwtProvider.generateToken(user.getUsername(), 20L, Set.of(ROLE_USER));
     }
 }

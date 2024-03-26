@@ -2,6 +2,7 @@ package com.gogoasa.c.core.controller;
 
 import com.gogoasa.c.core.model.Stay;
 import com.gogoasa.c.core.model.dto.StayRequestDto;
+import com.gogoasa.c.core.model.dto.StayResponseDto;
 import com.gogoasa.c.core.service.StayService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/stay")
 @AllArgsConstructor
@@ -19,8 +22,8 @@ public class StayController {
 
     private StayService stayService;
 
-    @PostMapping("/")
-    public ResponseEntity<Stay> findStays(@RequestBody StayRequestDto stayRequestDto) {
+    @PostMapping
+    public ResponseEntity<List<StayResponseDto>> findStays(@RequestBody StayRequestDto stayRequestDto) {
         log.info("Searching for stays...");
         return ResponseEntity.ok(stayService.findStays(stayRequestDto));
     }
