@@ -20,7 +20,7 @@ public class UserService {
 
     public UserCreationDto createUser(UserCreationDto user) {
         userRepository.findById(user.getUsername()).ifPresent(u -> {
-            throw new IllegalArgumentException("User already exists");
+            throw new IllegalArgumentException("User already exists!");
         });
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -39,14 +39,14 @@ public class UserService {
     public boolean login(UserRequestDto user) {
         return userRepository.findById(user.getUsername())
                 .map(u -> passwordEncoder.matches(user.getPassword(), u.getPassword()))
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found!"));
     }
 
     public UserResponseDto getUser(String username) {
          Optional<User> user = userRepository.findById(username);
 
          if (user.isEmpty()) {
-             throw new IllegalArgumentException("User not found");
+             throw new RuntimeException("User not found!");
          }
 
          return new UserResponseDto(user.get().getUsername(), user.get().getEmail());
@@ -54,7 +54,7 @@ public class UserService {
 
     public void deleteUser(String username) {
         if (userRepository.findById(username).isEmpty()) {
-            throw new IllegalArgumentException("User not found");
+            throw new RuntimeException("User not found!");
         }
 
         userRepository.deleteById(username);

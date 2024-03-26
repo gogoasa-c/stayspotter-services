@@ -18,7 +18,8 @@ public class StayController {
 
     @PostMapping("/favourite")
     public Boolean saveStayToFavourites(Stay stay) {
-        log.info("Saving stay to favourites...");
+        log.info("Received request to save stay to favourites...");
+        log.debug("Request: {}", stay);
 
         stayService.saveStayToFavourites(stay);
 
