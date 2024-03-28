@@ -33,7 +33,8 @@ jobs:
         echo ./gateway/target/*.jar
 
     - name: Open SFTP Connection to VM
-      env: SSH_PRIVATE_KEY: ${{secrets.VM_SSH_KEY}}
+      env: 
+        SSH_PRIVATE_KEY: ${{secrets.VM_SSH_KEY}}
       run: |
         echo "$SSH_PRIVATE_KEY" >> ssh_key && chmod +x ssh_key
         sftp -i ssh_key gogoasa@34.118.59.212
