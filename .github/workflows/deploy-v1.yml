@@ -32,6 +32,15 @@ jobs:
         echo ./eureka-server/target/*.jar
         echo ./gateway/target/*.jar
 
+    - name: Open SFTP Connection to VM
+      run: |
+        echo "${{VM_SSH_KEY}}" >> ssh_key
+        sftp -i ssh_key gogoasa@34.118.59.212
+        put ./core/target/*.jar
+        put ./data/target/*.jar
+        put ./eureka-server/target/*.jar
+        put ./gateway/target/*.jar
+
 
     
     
