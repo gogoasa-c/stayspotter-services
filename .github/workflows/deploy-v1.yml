@@ -37,7 +37,7 @@ jobs:
         VM_IP: ${{secrets.VM_IP}}
         SSH_PRIVATE_KEY: ${{secrets.VM_SSH_KEY}}
       run: |
-        echo $SSH_PRIVATE_KEY >> ssh_key && chmod +x ssh_key
+        echo $SSH_PRIVATE_KEY >> ssh_key && chmod 600 ssh_key
         sftp -v -o StrictHostKeyChecking=no -i ssh_key gogoasa@34.118.5.70
         put ./core/target/*.jar
         put ./data/target/*.jar
