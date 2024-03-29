@@ -37,7 +37,7 @@ jobs:
         SSH_PRIVATE_KEY: ${{secrets.VM_SSH_KEY}}
       run: |
         echo $SSH_PRIVATE_KEY >> ssh_key && chmod +x ssh_key
-        sftp -i ssh_key gogoasa@34.118.59.212
+        sftp -v -i ssh_key gogoasa@34.118.59.212
         put ./core/target/*.jar
         put ./data/target/*.jar
         put ./eureka-server/target/*.jar
