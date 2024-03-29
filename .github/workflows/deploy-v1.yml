@@ -34,6 +34,7 @@ jobs:
 
     - name: Open SFTP Connection to VM
       env: 
+        VM_IP: ${{secrets.VM_IP}}
         SSH_PRIVATE_KEY: ${{secrets.VM_SSH_KEY}}
       run: |
         echo $SSH_PRIVATE_KEY >> ssh_key && chmod +x ssh_key
