@@ -39,7 +39,7 @@ jobs:
       uses: wlixcc/SFTP-Deploy-Action@v1.2
       with:
         username: 'gogoasa'
-        server: $VM_IP
+        server: '34.118.5.70'
         ssh_private_key: $SSH_PRIVATE_KEY
         local_path: './core/target/*.jar'
         remote_path: '/'
