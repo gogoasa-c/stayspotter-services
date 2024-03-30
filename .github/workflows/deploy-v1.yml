@@ -41,8 +41,8 @@ jobs:
         server: ${{secrets.VM_IP}}
         username: gogoasa
         password: ${{secrets.VM_SSH_KEY}}
-        local-dir: './core/target/*.jar'
-        server-dir: '/home/gogoasa'
+        local-dir: './core/target/'
+        server-dir: '/home/gogoasa/core/'
         
         
       # run: |
