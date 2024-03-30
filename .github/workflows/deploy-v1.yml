@@ -33,17 +33,15 @@ jobs:
         echo ./gateway/target/*.jar
 
     - name: Open SFTP Connection to VM
+      uses: SamKirkland/FTP-Deploy-Action@v2.0.0  
       env: 
-        VM_IP: ${{secrets.VM_IP}}
-        SSH_PRIVATE_KEY: ${{secrets.VM_SSH_KEY}}
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ${{secrets.VM_IP}}
-        username: gogoasa
-        password: ${{secrets.VM_SSH_KEY}}
-        local-dir: './core/target/'
-        server-dir: '/home/gogoasa/core/'
-        
+        FTP_SERVER: ${{secrets.VM_IP}}
+        FTP_PASSWORD: ${{secrets.VM_SSH_KEY}}
+        FTP_USERNAME: 'gogoasa'
+        LOCAL_DIR: './core/target/maven-archiver/'
+        METHOD: sftp
+      
+  
         
       # run: |
       #   echo $SSH_PRIVATE_KEY >> ssh_key && chmod 600 ssh_key
