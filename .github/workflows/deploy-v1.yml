@@ -36,13 +36,21 @@ jobs:
       env: 
         VM_IP: ${{secrets.VM_IP}}
         SSH_PRIVATE_KEY: ${{secrets.VM_SSH_KEY}}
-      run: |
-        echo $SSH_PRIVATE_KEY >> ssh_key && chmod 600 ssh_key
-        sftp -v -o StrictHostKeyChecking=no -i ssh_key gogoasa@34.118.5.70
-        put ./core/target/*.jar
-        put ./data/target/*.jar
-        put ./eureka-server/target/*.jar
-        put ./gateway/target/*.jar
+      uses: wlixcc/SFTP-Deploy-Action@v1.2
+      with:
+        username: 'gogoasa'
+        server: '$VM_IP'
+        ssh_private_key: $SSH_PRIVATE_KEY
+        local_path: './core/target/'
+        remote_path: '/'
+        sftpArgs: '-o StrictHostKeyChecking=no'
+      # run: |
+      #   echo $SSH_PRIVATE_KEY >> ssh_key && chmod 600 ssh_key
+      #   sftp -v -o StrictHostKeyChecking=no -i ssh_key gogoasa@34.118.5.70
+      #   put ./core/target/*.jar
+      #   put ./data/target/*.jar
+      #   put ./eureka-server/target/*.jar
+      #   put ./gateway/target/*.jar
 
 
     
