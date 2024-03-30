@@ -36,14 +36,15 @@ jobs:
       env: 
         VM_IP: ${{secrets.VM_IP}}
         SSH_PRIVATE_KEY: ${{secrets.VM_SSH_KEY}}
-      uses: wlixcc/SFTP-Deploy-Action@v1.2
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        username: 'gogoasa'
-        server: '34.118.5.70'
-        ssh_private_key: $SSH_PRIVATE_KEY
-        local_path: './core/target/*.jar'
-        remote_path: '/'
-        sftpArgs: '-o StrictHostKeyChecking=no'
+        server: ${{secrets.VM_IP}}
+        username: gogoasa
+        password: ${{secrets.VM_SSH_KEY}}
+        local-dir: './core/target/*.jar'
+        server-dir: '/home/gogoasa'
+        
+        
       # run: |
       #   echo $SSH_PRIVATE_KEY >> ssh_key && chmod 600 ssh_key
       #   sftp -v -o StrictHostKeyChecking=no -i ssh_key gogoasa@34.118.5.70
