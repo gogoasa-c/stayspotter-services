@@ -41,7 +41,7 @@ jobs:
         username: 'gogoasa'
         server: '$VM_IP'
         ssh_private_key: $SSH_PRIVATE_KEY
-        local_path: './core/target/'
+        local_path: './core/target/*.jar'
         remote_path: '/'
         sftpArgs: '-o StrictHostKeyChecking=no'
       # run: |
