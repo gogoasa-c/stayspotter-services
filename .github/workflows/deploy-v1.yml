@@ -28,14 +28,14 @@ jobs:
     - name: Build with Maven
       run: mvn clean package -T 16
       
-    - name: Echo JARs and move them to root
+    - name: Move JARs to root
       run: |
         mv ./core/target/*.jar ./
         mv ./data/target/*.jar ./
         mv ./eureka-server/target/*.jar ./
         mv ./gateway/target/*.jar ./
 
-    - name: Deploy JARs to GCVM
+    - name: Copy JARs to GCVM
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.VM_IP }}
@@ -45,4 +45,19 @@ jobs:
         target: "/home/gogoasa/webapp"
         port: 22
         overwrite: true
+
+    - name: Restart GCVM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VM_IP }}
+        username: 'gogoasa'
+        key: ${{ secrets.VM_SSH_KEY }}
+        script: |
+          sudo systemctl restart core.service
+          sleep 10
+          sudo systemctl restart data.service
+          sleep 10
+          sudo systemctl restart eureka-server.service
+          sleep 10
+          sudo systemctl restart gateway.service
     
