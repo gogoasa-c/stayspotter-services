@@ -1,4 +1,4 @@
-name: Deploy GCVM
+name: Deploy Microservices to GCVM
 
 on:
   workflow_dispatch:
