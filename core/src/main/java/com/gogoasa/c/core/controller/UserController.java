@@ -25,10 +25,10 @@ public class UserController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> login(@RequestBody UserRequestDto user) {
         log.info("Received request to login...");
-        log.debug("Request: {}", user);
+        log.info("Request: {}", user);
 
         String jwt = userService.login(user);
-        log.debug("Response: {}", jwt);
+        log.info("Response: {}", jwt);
 
         return ResponseEntity.ok(jwt);
     }

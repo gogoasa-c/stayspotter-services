@@ -13,7 +13,7 @@ import lombok.Setter;
 public class User {
     @Id
     private String username;
-    private String email;
+//    private String email;
     private String password;
     private String roles = "ROLE_USER";
 }

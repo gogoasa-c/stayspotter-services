@@ -59,7 +59,7 @@ class UserServiceTest {
         final String password = "password";
 
         User initialUser = new User();
-        initialUser.setEmail("mail@mail.com");
+//        initialUser.setEmail("mail@mail.com");
         initialUser.setUsername(username);
         initialUser.setPassword(password);
 

@@ -28,7 +28,7 @@ public class UserService {
 
         User userToSave = new User();
         userToSave.setUsername(user.getUsername());
-        userToSave.setEmail(user.getEmail());
+//        userToSave.setEmail(user.getEmail());
         userToSave.setPassword(user.getPassword());
 
         userRepository.save(userToSave);
@@ -49,7 +49,7 @@ public class UserService {
              throw new RuntimeException("User not found!");
          }
 
-         return new UserResponseDto(user.get().getUsername(), user.get().getEmail());
+         return new UserResponseDto(user.get().getUsername() /*user.get().getEmail()*/);
     }
 
     public void deleteUser(String username) {

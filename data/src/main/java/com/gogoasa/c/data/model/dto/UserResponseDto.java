@@ -9,5 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserResponseDto {
     private String username;
-    private String email;
+//    private String email;
 }
