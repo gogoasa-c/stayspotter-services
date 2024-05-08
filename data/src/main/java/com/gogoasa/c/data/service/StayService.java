@@ -14,4 +14,8 @@ public class StayService {
     public void saveStayToFavourites(Stay stay) {
         stayRepository.save(stay);
     }
+
+    public void increaseNumberOfSearches(String username) {
+
+    }
 }

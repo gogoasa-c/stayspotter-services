@@ -42,7 +42,7 @@ class UserServiceTest {
     public void createUserSuccessfully() {
         String expectedPassword = "encodedPassword";
 
-        UserCreationDto user = new UserCreationDto("username", "email", "password");
+        UserCreationDto user = new UserCreationDto("username", /*"email",*/ "password");
 
         when(userRepository.findById(user.getUsername())).thenReturn(Optional.empty());
         when(passwordEncoder.encode(user.getPassword())).thenReturn(expectedPassword);
@@ -51,13 +51,13 @@ class UserServiceTest {
         UserCreationDto result = userService.createUser(user);
 
         assertEquals(user.getUsername(), result.getUsername());
-        assertEquals(user.getEmail(), result.getEmail());
+//        assertEquals(user.getEmail(), result.getEmail());
         assertEquals(expectedPassword, result.getPassword());
     }
 
     @Test
     public void createUserFailed() {
-        UserCreationDto user = new UserCreationDto("username", "email", "password");
+        UserCreationDto user = new UserCreationDto("username", /*"email",*/ "password");
 
         when(userRepository.findById(user.getUsername())).thenReturn(Optional.of(new User()));
 

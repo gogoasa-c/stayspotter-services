@@ -25,4 +25,13 @@ public class StayController {
 
         return Boolean.TRUE;
     }
+
+    public Boolean increaseNumberOfSearches(String username) {
+        log.info("Received request to increase number of searches...");
+        log.debug("Request: username = {}", username);
+
+        stayService.increaseNumberOfSearches(username);
+
+        return Boolean.TRUE;
+    }
 }
