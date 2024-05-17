@@ -1,10 +1,12 @@
 package com.gogoasa.c.data.controller;
 
 import com.gogoasa.c.data.model.Stay;
+import com.gogoasa.c.data.model.dto.FavouriteStayDto;
 import com.gogoasa.c.data.service.StayService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +18,10 @@ public class StayController {
 
     private final StayService stayService;
 
+
+
     @PostMapping("/favourite")
-    public Boolean saveStayToFavourites(Stay stay) {
+    public Boolean saveStayToFavourites(@RequestBody FavouriteStayDto stay) {
         log.info("Received request to save stay to favourites...");
         log.debug("Request: {}", stay);
 

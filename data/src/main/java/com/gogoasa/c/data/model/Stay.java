@@ -1,21 +1,24 @@
 package com.gogoasa.c.data.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Stay {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String city;
+    @Column(length = 1000, columnDefinition = "TEXT")
+    private String link;
+    @Column(length = 1000, columnDefinition = "TEXT")
+    private String photoUrl;
     private String name;
-    private String address;
     private Float price;
     @OneToOne
     private Reservation reservation;

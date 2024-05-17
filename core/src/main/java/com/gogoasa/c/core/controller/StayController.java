@@ -7,10 +7,7 @@ import com.gogoasa.c.core.service.StayService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +28,19 @@ public class StayController {
         log.debug("Response: {}", stays);
 
         return ResponseEntity.ok(stays);
+    }
+
+    @GetMapping("/favourite")
+    public ResponseEntity<List<StayResponseDto>> getFavourites(
+        @RequestHeader("Authorization") String bearerToken
+    ) {
+        log.info("Received request to get favourites...");
+        log.debug("Request: bearerToken = {}", bearerToken);
+
+        List<StayResponseDto> favourites = stayService.getFavourites(bearerToken);
+        log.debug("Response: {}", favourites);
+
+        return ResponseEntity.ok(favourites);
     }
 
     @PostMapping("/favourite")

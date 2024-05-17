@@ -3,9 +3,10 @@ package com.gogoasa.c.core.service;
 import com.gogoasa.c.core.model.Stay;
 import com.gogoasa.c.core.model.dto.StayRequestDto;
 import com.gogoasa.c.core.model.dto.StayResponseDto;
-import lombok.AllArgsConstructor;
+import com.gogoasa.c.core.utils.Helper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,6 +32,10 @@ public class StayService {
     }
 
     public void saveStayToFavourites(Stay stay) {
+        stay.setUsername(
+            SecurityContextHolder.getContext().getAuthentication().getName()
+        );
+
         Boolean successfullySaved = restTemplate
             .postForObject("%s/stay/favourite".formatted(dataServiceUrl), stay, Boolean.class);
 
@@ -38,4 +43,13 @@ public class StayService {
             throw new IllegalArgumentException("Failed to save stay to favourites!");
         }
     }
+
+    public List<StayResponseDto> getFavourites(String bearerToken) {
+
+        String username = Helper.getUsernameFromBearerToken(bearerToken);
+
+
+
+        return null;
+   }
 }

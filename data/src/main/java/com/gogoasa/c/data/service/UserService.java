@@ -52,6 +52,12 @@ public class UserService {
          return new UserResponseDto(user.get().getUsername() /*user.get().getEmail()*/);
     }
 
+    public User getFullUser(String username) {
+        return userRepository.findById(username)
+                .orElseThrow(() -> new RuntimeException("User not found!"));
+
+    }
+
     public void deleteUser(String username) {
         if (userRepository.findById(username).isEmpty()) {
             throw new RuntimeException("User not found!");

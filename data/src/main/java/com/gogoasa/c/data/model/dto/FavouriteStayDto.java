@@ -1,23 +1,26 @@
-package com.gogoasa.c.core.model;
+package com.gogoasa.c.data.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
 @Setter
-public class Stay {
+@ToString
+public class FavouriteStayDto {
     private String city;
-    private String name;
     private String link;
+    private String name;
     private String photoUrl;
-    private Float x, y;
     private Float price;
+    private Float x;
+    private Float y;
     private Integer adults;
     private Integer rooms;
     private Date checkIn;
     private Date checkOut;
     private String username;
-//    private String foundOn; // booking, trivago, airbnb
 }

@@ -76,7 +76,7 @@ class StayServiceTest {
         when(restTemplate.postForObject(anyString(), any(), eq(Boolean.class)))
             .thenReturn(true);
 
-        assertDoesNotThrow(() -> stayService.saveStayToFavourites(new Stay()));
+        assertDoesNotThrow(() -> stayService.saveStayToFavourites(new Stay(), bearerToken));
     }
 
     @Test
@@ -84,6 +84,6 @@ class StayServiceTest {
         when(restTemplate.postForObject(anyString(), any(), eq(Boolean.class)))
             .thenReturn(false);
 
-        assertThrows(IllegalArgumentException.class, () -> stayService.saveStayToFavourites(new Stay()));
+        assertThrows(IllegalArgumentException.class, () -> stayService.saveStayToFavourites(new Stay(), bearerToken));
     }
 }
