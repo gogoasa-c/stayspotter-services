@@ -3,8 +3,6 @@ package com.gogoasa.c.core.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 public class Stay {
@@ -16,8 +14,8 @@ public class Stay {
     private Float price;
     private Integer adults;
     private Integer rooms;
-    private Date checkIn;
-    private Date checkOut;
+    private String checkIn;
+    private String checkOut;
     private String username;
 //    private String foundOn; // booking, trivago, airbnb
 }

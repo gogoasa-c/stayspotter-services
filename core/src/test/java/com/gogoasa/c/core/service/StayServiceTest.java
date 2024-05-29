@@ -37,14 +37,14 @@ class StayServiceTest {
         StayResponseDto stay1 = new StayResponseDto();
         stay1.setName("Hotel");
         stay1.setPrice("100");
-        stay1.setPhoto("http://photo.com");
+        stay1.setPhotoUrl("http://photo.com");
         stay1.setX(1F);
         stay1.setY(1F);
 
         StayResponseDto stay2 = new StayResponseDto();
         stay2.setName("Hotel2");
         stay2.setPrice("200");
-        stay2.setPhoto("http://photo2.com");
+        stay2.setPhotoUrl("http://photo2.com");
         stay2.setX(2F);
         stay2.setY(2F);
 
@@ -59,13 +59,13 @@ class StayServiceTest {
 
         assertEquals("Hotel", stayResponseDtoList.get(0).getName());
         assertEquals("100", stayResponseDtoList.get(0).getPrice());
-        assertEquals("http://photo.com", stayResponseDtoList.get(0).getPhoto());
+        assertEquals("http://photo.com", stayResponseDtoList.get(0).getPhotoUrl());
         assertEquals(1F, stayResponseDtoList.get(0).getX());
         assertEquals(1F, stayResponseDtoList.get(0).getY());
 
         assertEquals("Hotel2", stayResponseDtoList.get(1).getName());
         assertEquals("200", stayResponseDtoList.get(1).getPrice());
-        assertEquals("http://photo2.com", stayResponseDtoList.get(1).getPhoto());
+        assertEquals("http://photo2.com", stayResponseDtoList.get(1).getPhotoUrl());
         assertEquals(2F, stayResponseDtoList.get(1).getX());
         assertEquals(2F, stayResponseDtoList.get(1).getY());
 
@@ -76,7 +76,7 @@ class StayServiceTest {
         when(restTemplate.postForObject(anyString(), any(), eq(Boolean.class)))
             .thenReturn(true);
 
-        assertDoesNotThrow(() -> stayService.saveStayToFavourites(new Stay(), bearerToken));
+        assertDoesNotThrow(() -> stayService.saveStayToFavourites(new Stay()));
     }
 
     @Test
@@ -84,6 +84,6 @@ class StayServiceTest {
         when(restTemplate.postForObject(anyString(), any(), eq(Boolean.class)))
             .thenReturn(false);
 
-        assertThrows(IllegalArgumentException.class, () -> stayService.saveStayToFavourites(new Stay(), bearerToken));
+        assertThrows(IllegalArgumentException.class, () -> stayService.saveStayToFavourites(new Stay()));
     }
 }

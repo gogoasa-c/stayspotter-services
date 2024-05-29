@@ -3,8 +3,6 @@ package com.gogoasa.c.data.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-
 @Builder
 @Data
 @NoArgsConstructor
@@ -14,8 +12,8 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date checkIn;
-    private Date checkOut;
+    private String checkIn;
+    private String checkOut;
     @ManyToOne
     private User user;
     private Boolean isPast;

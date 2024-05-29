@@ -44,12 +44,13 @@ public class StayService {
         }
     }
 
-    public List<StayResponseDto> getFavourites(String bearerToken) {
+    public List<StayResponseDto> getFavourites() {
 
-        String username = Helper.getUsernameFromBearerToken(bearerToken);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
+        StayResponseDto[] stayArray = restTemplate
+            .getForObject("%s/stay/favourite?username=%s".formatted(dataServiceUrl, username), StayResponseDto[].class);
 
-
-        return null;
+        return stayArray != null ? Arrays.asList(stayArray) : List.of();
    }
 }

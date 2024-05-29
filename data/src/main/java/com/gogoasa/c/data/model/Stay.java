@@ -22,4 +22,8 @@ public class Stay {
     private Float price;
     @OneToOne
     private Reservation reservation;
+    private Float x;
+    private Float y;
+    private Integer adults;
+    private Integer rooms;
 }

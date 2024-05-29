@@ -1,15 +1,9 @@
 package com.gogoasa.c.data.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import java.time.LocalDate;
-import java.util.Date;
-
-@Getter
-@Setter
-@ToString
+@Builder
+@Data
 public class FavouriteStayDto {
     private String city;
     private String link;
@@ -20,7 +14,7 @@ public class FavouriteStayDto {
     private Float y;
     private Integer adults;
     private Integer rooms;
-    private Date checkIn;
-    private Date checkOut;
+    private String checkIn;
+    private String checkOut;
     private String username;
 }

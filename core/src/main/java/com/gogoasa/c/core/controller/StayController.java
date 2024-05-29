@@ -37,7 +37,7 @@ public class StayController {
         log.info("Received request to get favourites...");
         log.debug("Request: bearerToken = {}", bearerToken);
 
-        List<StayResponseDto> favourites = stayService.getFavourites(bearerToken);
+        List<StayResponseDto> favourites = stayService.getFavourites();
         log.debug("Response: {}", favourites);
 
         return ResponseEntity.ok(favourites);

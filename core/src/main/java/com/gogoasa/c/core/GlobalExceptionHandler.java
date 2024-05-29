@@ -1,7 +1,9 @@
 package com.gogoasa.c.core;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -27,6 +29,15 @@ public class GlobalExceptionHandler {
         log.error(Arrays.toString(exception.getStackTrace()));
 
         return ResponseEntity.internalServerError().body(errorMessage);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<String> handleAuthenticationException(AuthenticationException exception) {
+        String errorMessage = STR."AUTHENTICATION EXCEPTION OCCURRED: \{exception.getMessage()}";
+
+        log.error(Arrays.toString(exception.getStackTrace()));
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
     }
 
     @ExceptionHandler(Exception.class)

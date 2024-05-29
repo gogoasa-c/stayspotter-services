@@ -8,10 +8,15 @@ import lombok.ToString;
 @Setter
 @ToString
 public class StayResponseDto {
+    private String city;
     private String link;
     private String name;
-    private String photo;
+    private String photoUrl;
     private String price;
     private Float x;
     private Float y;
+    private Integer adults;
+    private Integer rooms;
+    private String checkIn;
+    private String checkOut;
 }
