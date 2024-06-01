@@ -3,18 +3,21 @@ package com.gogoasa.c.data.controller;
 import com.gogoasa.c.data.service.StatsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/stats")
 public class StatsController {
 
     private final StatsService statsService;
 
-    @GetMapping("/stats/{username}")
-    public ResponseEntity<Void> increaseNumberOfSearches(@PathVariable String username) {
+    @GetMapping
+    public ResponseEntity<Void> increaseCheckedOutStays(@RequestParam("username") String username) {
+        if (username == null || username.isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+
         statsService.increaseNumberOfSearches(username);
         return ResponseEntity.ok().build();
     }
