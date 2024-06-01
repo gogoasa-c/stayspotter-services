@@ -1,5 +1,6 @@
 package com.gogoasa.c.data.controller;
 
+import com.gogoasa.c.data.model.dto.UserStatsDto;
 import com.gogoasa.c.data.service.StatsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,5 +21,14 @@ public class StatsController {
 
         statsService.increaseNumberOfSearches(username);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<UserStatsDto> getUserStats(@RequestParam("username") String username) {
+        if (username == null || username.isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok(statsService.getUserStats(username));
     }
 }

@@ -1,11 +1,13 @@
 package com.gogoasa.c.core.controller;
 
+import com.gogoasa.c.core.model.dto.UserStatsDto;
 import com.gogoasa.c.core.service.StatsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,5 +22,13 @@ public class StatsController {
 
         statsService.increaseCheckedOutStays();
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<UserStatsDto> getUserStats() {
+        log.info("Received request for getting user stats...");
+        UserStatsDto userStatsDto = statsService.getUserStats();
+
+        return ResponseEntity.ok(userStatsDto);
     }
 }
