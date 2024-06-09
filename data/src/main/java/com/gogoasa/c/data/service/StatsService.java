@@ -7,6 +7,7 @@ import com.gogoasa.c.data.model.dto.UserResponseDto;
 import com.gogoasa.c.data.model.dto.UserStatsDto;
 import com.gogoasa.c.data.repository.StatsRepository;
 import com.gogoasa.c.data.repository.UserRepository;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
@@ -23,21 +24,31 @@ public class StatsService {
     public void increaseNumberOfSearches(String username) {
 
         User user = userRepository.findById(username).orElseThrow();
-
         Optional<Stats> stats = statsRepository.findStatsByUser(user);
 
-        stats.ifPresentOrElse(
-                s -> {
-                    s.setNumberOfSearches(s.getNumberOfSearches() + 1);
-                    statsRepository.save(s);
-                },
-                () -> {
-                    Stats newStats = new Stats();
-                    newStats.setUser(user);
-                    newStats.setNumberOfSearches(1);
-                    statsRepository.save(newStats);
-                }
-        );
+        if (stats.isPresent()) {
+            stats.get().setNumberOfSearches(stats.get().getNumberOfSearches() + 1);
+            statsRepository.save(stats.get());
+        } else {
+            Stats newStats = new Stats();
+            newStats.setUser(user);
+            newStats.setNumberOfSearches(1);
+            statsRepository.save(newStats);
+        }
+
+//        stats.ifPresentOrElse(
+//                s -> {
+//                    s.setNumberOfSearches(s.getNumberOfSearches() + 1);
+//                    statsRepository.save(s);
+//                },
+//                () -> {
+//                    Stats newStats = new Stats();
+//                    newStats.setUser(user);
+//                    newStats.setNumberOfSearches(1);
+//                    // todo for id it's getting null? shouldn't it autogenerate
+//                    statsRepository.save(newStats);
+//                }
+//        );
     }
 
     public UserStatsDto getUserStats(String username) {

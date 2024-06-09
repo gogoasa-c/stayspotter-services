@@ -16,7 +16,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
         FROM (
             SELECT
                 user_username,
-                (RANK() OVER (ORDER BY number_of_searches DESC) / COUNT(*) OVER () * 100) AS percentile
+                (CAST(RANK() OVER (ORDER BY number_of_searches DESC) as FLOAT) / COUNT(*) OVER () * 100) AS percentile
             FROM stats
         ) AS ranked_stats
         WHERE user_username = :username
