@@ -2,12 +2,12 @@ package com.gogoasa.c.data.controller;
 
 import com.gogoasa.c.data.model.dto.FavouriteStayDto;
 import com.gogoasa.c.data.service.StayService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/stay")
@@ -42,12 +42,16 @@ public class StayController {
         return Boolean.TRUE;
     }
 
-    public Boolean increaseNumberOfSearches(String username) {
-        log.info("Received request to increase number of searches...");
-        log.debug("Request: username = {}", username);
 
-        stayService.increaseNumberOfSearches(username);
+    @Transactional
+    @DeleteMapping("/favourite/{id}")
+    public ResponseEntity<Void> deleteStayFromFavourites(@PathVariable("id") Long reservationId,
+                                                         @RequestParam String username) {
+        log.info("Received request to delete stay from favourites...");
+        log.debug("Request: {}", reservationId);
 
-        return Boolean.TRUE;
+        stayService.deleteStayFromFavourites(reservationId, username);
+
+        return ResponseEntity.noContent().build();
     }
 }

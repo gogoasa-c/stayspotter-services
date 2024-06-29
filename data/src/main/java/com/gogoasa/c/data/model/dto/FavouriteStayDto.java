@@ -5,6 +5,7 @@ import lombok.*;
 @Builder
 @Data
 public class FavouriteStayDto {
+    private Long reservationId;
     private String city;
     private String link;
     private String name;

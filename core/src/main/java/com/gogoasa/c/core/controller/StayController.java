@@ -6,6 +6,7 @@ import com.gogoasa.c.core.model.dto.StayResponseDto;
 import com.gogoasa.c.core.service.StayService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +50,16 @@ public class StayController {
         log.debug("Request: {}", stay);
 
         stayService.saveStayToFavourites(stay);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/favourite/{id}")
+    public ResponseEntity<Void> deleteStayFromFavourites(@PathVariable("id") Long reservationId) {
+        log.info("Received request to delete stay from favourites...");
+        log.debug("Request: {}", reservationId);
+
+        stayService.deleteStayFromFavourites(reservationId);
+
         return ResponseEntity.ok().build();
     }
 }

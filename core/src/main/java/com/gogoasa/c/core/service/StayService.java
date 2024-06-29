@@ -3,8 +3,8 @@ package com.gogoasa.c.core.service;
 import com.gogoasa.c.core.model.Stay;
 import com.gogoasa.c.core.model.dto.StayRequestDto;
 import com.gogoasa.c.core.model.dto.StayResponseDto;
-import com.gogoasa.c.core.utils.Helper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class StayService {
@@ -52,5 +53,13 @@ public class StayService {
             .getForObject("%s/stay/favourite?username=%s".formatted(dataServiceUrl, username), StayResponseDto[].class);
 
         return stayArray != null ? Arrays.asList(stayArray) : List.of();
-   }
+    }
+
+    public void deleteStayFromFavourites(Long reservationId) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        restTemplate.delete("%s/stay/favourite/%d?username=%s".formatted(dataServiceUrl,
+            reservationId, username));
+
+    }
 }

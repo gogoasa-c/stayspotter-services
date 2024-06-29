@@ -8,6 +8,8 @@ spring:
           uri: lb://CORE
           predicates:
             - Path=/**
+          filters:
+            - AddRequestHeader=X-Valid-Request-Token, true
       discovery:
         locator:
           lower-case-service-id: true

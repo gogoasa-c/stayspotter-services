@@ -6,12 +6,16 @@ import com.gogoasa.c.data.model.User;
 import com.gogoasa.c.data.model.dto.FavouriteStayDto;
 import com.gogoasa.c.data.repository.ReservationRepository;
 import com.gogoasa.c.data.repository.StayRepository;
-import com.gogoasa.c.data.util.Helper;
+import com.gogoasa.c.data.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class StayService {
@@ -19,6 +23,7 @@ public class StayService {
     private final UserService userService;
     private final StayRepository stayRepository;
     private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;
 
     public void saveStayToFavourites(FavouriteStayDto stay) {
         User user = userService.getFullUser(stay.getUsername());
@@ -48,10 +53,6 @@ public class StayService {
         stayRepository.save(stayToBeSaved);
     }
 
-    public void increaseNumberOfSearches(String username) {
-
-    }
-
     public FavouriteStayDto[] getFavouriteStays(String username) {
 
         List<Reservation> reservationList = reservationRepository.findByUserUsername(username);
@@ -62,6 +63,7 @@ public class StayService {
 
         return stayList.stream()
             .map(stay -> FavouriteStayDto.builder()
+                .reservationId(stay.getReservation().getId())
                 .city(stay.getCity())
                 .link(stay.getLink())
                 .name(stay.getName())
@@ -76,5 +78,22 @@ public class StayService {
                 .username(stay.getReservation().getUser().getUsername())
                 .build())
             .toArray(FavouriteStayDto[]::new);
+    }
+
+    public void deleteStayFromFavourites(Long reservationId, String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new IllegalArgumentException("User not found!");
+        }
+
+        stayRepository.findByReservationId(List.of(reservationId))
+            .stream()
+            .filter(stay -> stay.getReservation().getUser().getUsername().equals(user.get().getUsername()))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("Stay not found!"));
+
+        stayRepository.deleteByReservationId(reservationId);
+        reservationRepository.deleteById(reservationId);
     }
 }

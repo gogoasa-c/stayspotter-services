@@ -4,10 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
-public class StayResponseDto {
+public class StayResponseDto implements Serializable {
+    private Long reservationId;
     private String city;
     private String link;
     private String name;
