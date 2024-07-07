@@ -19,7 +19,7 @@ public class UserService {
 
     private final JwtProvider jwtProvider;
     private final RestTemplate restTemplate;
-    private final Long TTL = 20L;
+    private final Long TTL = 48L;
 
     @Value("${data-service.url:http://localhost:8087}")
     private String dataServiceUrl;

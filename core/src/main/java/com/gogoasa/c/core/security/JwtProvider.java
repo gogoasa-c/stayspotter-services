@@ -35,7 +35,7 @@ public class JwtProvider {
     public String generateToken(String username, Long ttl, Set<String> authorities) {
         log.debug("Generating JWT for user {} with authorities {}", username, authorities);
 
-        Date expriationDate = Date.from(ZonedDateTime.now().plusMinutes(ttl).toInstant());
+        Date expriationDate = Date.from(ZonedDateTime.now().plusHours(ttl).toInstant());
         log.debug("JWT will expire at {}", expriationDate);
 
         return Jwts.builder()

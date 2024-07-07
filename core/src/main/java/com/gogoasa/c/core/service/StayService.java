@@ -1,6 +1,8 @@
 package com.gogoasa.c.core.service;
 
 import com.gogoasa.c.core.model.Stay;
+import com.gogoasa.c.core.model.dto.AvailabilityRequestDto;
+import com.gogoasa.c.core.model.dto.AvailabilityResponseDto;
 import com.gogoasa.c.core.model.dto.StayRequestDto;
 import com.gogoasa.c.core.model.dto.StayResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -61,5 +63,14 @@ public class StayService {
         restTemplate.delete("%s/stay/favourite/%d?username=%s".formatted(dataServiceUrl,
             reservationId, username));
 
+    }
+
+    public AvailabilityResponseDto checkAvailability(AvailabilityRequestDto availabilityRequestDto) {
+        if (availabilityRequestDto.getStayUrl() == null || availabilityRequestDto.getStayUrl().isBlank()) {
+            throw new IllegalArgumentException("Stay URL is either null or empty!");
+        }
+
+        return restTemplate.postForObject("%s/stays/availability".formatted(scraperServiceUrl),
+            availabilityRequestDto, AvailabilityResponseDto.class);
     }
 }

@@ -1,12 +1,13 @@
 package com.gogoasa.c.core.controller;
 
 import com.gogoasa.c.core.model.Stay;
+import com.gogoasa.c.core.model.dto.AvailabilityRequestDto;
+import com.gogoasa.c.core.model.dto.AvailabilityResponseDto;
 import com.gogoasa.c.core.model.dto.StayRequestDto;
 import com.gogoasa.c.core.model.dto.StayResponseDto;
 import com.gogoasa.c.core.service.StayService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,5 +62,13 @@ public class StayController {
         stayService.deleteStayFromFavourites(reservationId);
 
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/availability")
+    public ResponseEntity<AvailabilityResponseDto> checkAvailability(@RequestBody AvailabilityRequestDto requestDto) {
+        log.info("Received request to check availability...");
+        log.debug("Request: {}", requestDto);
+
+        return ResponseEntity.ok(stayService.checkAvailability(requestDto));
     }
 }
