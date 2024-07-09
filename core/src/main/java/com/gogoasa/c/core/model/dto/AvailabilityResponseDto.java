@@ -9,4 +9,5 @@ import java.io.Serializable;
 @Setter
 public class AvailabilityResponseDto implements Serializable {
     private Boolean available;
+    private Boolean priceChanged;
 }

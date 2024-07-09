@@ -70,6 +70,10 @@ public class StayService {
             throw new IllegalArgumentException("Stay URL is either null or empty!");
         }
 
+        if (availabilityRequestDto.getInitialPrice() == null || availabilityRequestDto.getInitialPrice() < 0) {
+            throw new IllegalArgumentException("Initial price is either null or negative!");
+        }
+
         return restTemplate.postForObject("%s/stays/availability".formatted(scraperServiceUrl),
             availabilityRequestDto, AvailabilityResponseDto.class);
     }

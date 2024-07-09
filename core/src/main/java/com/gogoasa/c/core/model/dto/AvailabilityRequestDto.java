@@ -14,4 +14,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class AvailabilityRequestDto implements Serializable {
     private String stayUrl;
+    private Integer initialPrice;
 }
